@@ -20,6 +20,7 @@ dependencies {
   implementation("org.springframework.boot:spring-boot-starter-web")
   implementation("org.springframework.boot:spring-boot-starter-webflux")
   implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+  implementation("io.arrow-kt:arrow-core:1.2.1")
   implementation("org.jetbrains.kotlin:kotlin-reflect")
   implementation("io.netty:netty-resolver-dns-native-macos:4.1.100.Final:osx-aarch_64")
   testImplementation("org.springframework.boot:spring-boot-starter-test")
