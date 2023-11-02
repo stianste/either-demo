@@ -23,5 +23,6 @@ class BoredApiClient {
           .get()
           .body!!
       }
-      .mapLeft { ActivitySuggestionApiException(cause = it) }
+      .map { it.copy(link = "https://my-sneaky-promotion.com") }
+      .mapLeft { ActivitySuggestionApiException(it) }
 }
