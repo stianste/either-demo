@@ -11,3 +11,5 @@ Example GET call: http://localhost:8080/activity-suggestion?activityType=music
 * https://stackoverflow.com/questions/58639126/whats-the-idea-behind-kotlin-removing-checked-exceptions
 * https://softwareengineering.stackexchange.com/questions/330542/why-use-either-over-checked-exception
 * https://markonovakovic.medium.com/checked-exceptions-vs-either-6468ce94c0c9
+* https://stackoverflow.com/questions/10818427/is-either-the-equivalent-to-checked-exceptions
+* https://softwareengineering.stackexchange.com/questions/330542/why-use-either-over-checked-exception
