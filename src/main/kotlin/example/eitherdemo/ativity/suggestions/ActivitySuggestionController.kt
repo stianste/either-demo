@@ -17,4 +17,10 @@ class ActivitySuggestionController(
     @RequestParam activityType: String,
   ): ResponseEntity<BoredApiResponse?> =
     ok().body(activitySuggestionService.getActivitySuggestion(activityType))
+
+  @GetMapping("/activity-suggestions")
+  fun getActivitySuggestions(
+    @RequestParam activityTypes: List<String>,
+  ): ResponseEntity<List<BoredApiResponse?>> =
+    ok().body(activitySuggestionService.getActivitySuggestions(activityTypes))
 }
