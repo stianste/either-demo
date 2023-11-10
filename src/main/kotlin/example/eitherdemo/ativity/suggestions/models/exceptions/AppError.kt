@@ -9,7 +9,7 @@ sealed interface AppError {
     val cause: Throwable
     val httpStatus: HttpStatus
 
-    class ActivitySuggestionApiException(
+    class BoredApiException(
       override val cause: Throwable,
       override val httpStatus: HttpStatus = HttpStatus.INTERNAL_SERVER_ERROR
     ) : ExternalApiError {
