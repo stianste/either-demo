@@ -2,13 +2,12 @@ package example.sealedclasses
 
 class AppException(
   val message: String,
-  val cause: Throwable? = null,
-  val httpStatus: Int? = null,
-  val thoseDomainExceptionsWhichDontHaveAnythingToDoWithExternalApis: List<DomainException>? = null,
+  val cause: Throwable,
+  val httpStatus: Int,
 ) {
   class ThatFirstExternalApiException(
     cause: Throwable,
-    httpStatus: Int? = null,
+    httpStatus: Int,
   ) :
     AppException(
       message =
@@ -20,7 +19,7 @@ class AppException(
 
   class ThatSecondExternalApiException(
     cause: Throwable,
-    httpStatus: Int? = null,
+    httpStatus: Int,
   ) :
     AppException(
       message =
@@ -29,20 +28,4 @@ class AppException(
       cause = cause,
       httpStatus = httpStatus,
     )
-
-  class ThatDomainExceptionWhichNeedsSpecialAttention(
-    errors: List<DomainException>,
-  ) :
-    AppException(
-      message =
-        if (errors.contains(DomainException.BasicallyExpected)) "Pjuh"
-        else "OMG the world is burning",
-      cause = null,
-      httpStatus = if (errors.contains(DomainException.BasicallyExpected)) 200 else 500,
-    )
-}
-
-enum class DomainException {
-  BasicallyExpected,
-  TotalDisaster,
 }

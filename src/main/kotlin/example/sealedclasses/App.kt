@@ -6,10 +6,6 @@ class App {
       when (exception) {
         is AppException.ThatFirstExternalApiException,
         is AppException.ThatSecondExternalApiException -> -1
-        is AppException.ThatDomainExceptionWhichNeedsSpecialAttention -> {
-          println("Would do some special handling here")
-          200
-        }
       }
   }
 }
