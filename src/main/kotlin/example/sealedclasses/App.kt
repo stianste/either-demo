@@ -5,7 +5,7 @@ class App {
     fun handleError(exception: AppException): Int =
       when (exception) {
         is AppException.ThatFirstExternalApiException,
-        is AppException.ThatSecondExternalApiException -> -1
+        is AppException.ThatSecondExternalApiException -> exception.httpStatus ?: 500
         is AppException.ThatDomainExceptionWhichNeedsSpecialAttention -> {
           println("Would do some special handling here")
           200
