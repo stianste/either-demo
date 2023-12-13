@@ -4,7 +4,7 @@ class AppException(
   val message: String,
   val cause: Throwable? = null,
   val httpStatus: Int? = null,
-  val thoseDomainExceptionsWhichDontHaveAnythingToDoWithExternalApis: List<DomainException>? = null,
+  val domainExceptionsWhichDontHaveAnythingToDoWithExternalApis: DomainException? = null,
 ) {
   class ThatFirstExternalApiException(
     cause: Throwable,
@@ -31,14 +31,13 @@ class AppException(
     )
 
   class ThatDomainExceptionWhichNeedsSpecialAttention(
-    errors: List<DomainException>,
+    domainCause: DomainException,
   ) :
     AppException(
       message =
-        if (errors.contains(DomainException.BasicallyExpected)) "Pjuh"
-        else "OMG the world is burning",
+        if (domainCause == DomainException.TotalDisaster) "OMG the world is burning" else "Pjuh",
       cause = null,
-      httpStatus = if (errors.contains(DomainException.BasicallyExpected)) 200 else 500,
+      httpStatus = if (domainCause == DomainException.BasicallyExpected) 200 else 500,
     )
 }
 
