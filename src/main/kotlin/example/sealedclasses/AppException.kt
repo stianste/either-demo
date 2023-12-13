@@ -8,7 +8,7 @@ class AppException(
 ) {
   class ThatFirstExternalApiException(
     cause: Throwable,
-    httpStatus: Int? = null,
+    httpStatus: Int,
   ) :
     AppException(
       message =
@@ -20,7 +20,7 @@ class AppException(
 
   class ThatSecondExternalApiException(
     cause: Throwable,
-    httpStatus: Int? = null,
+    httpStatus: Int,
   ) :
     AppException(
       message =
