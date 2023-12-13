@@ -1,44 +1,38 @@
 package example.sealedclasses
 
-class AppException(
-  val message: String,
-  val cause: Throwable? = null,
-  val httpStatus: Int? = null,
-  val domainExceptionsWhichDontHaveAnythingToDoWithExternalApis: DomainException? = null,
-) {
-  class ThatFirstExternalApiException(
-    cause: Throwable,
-    httpStatus: Int,
-  ) :
-    AppException(
-      message =
-        cause.message
-          ?: "Something went wrong when calling the first external api, and no message was provided.",
-      cause = cause,
-      httpStatus = httpStatus,
-    )
+import example.sealedclasses.DomainException.TotalDisaster
 
-  class ThatSecondExternalApiException(
-    cause: Throwable,
-    httpStatus: Int,
-  ) :
-    AppException(
-      message =
-        cause.message
-          ?: "Something went wrong when calling the second external api, and no message was provided.",
-      cause = cause,
-      httpStatus = httpStatus,
-    )
+sealed interface AppException {
+  val message: String
 
-  class ThatDomainExceptionWhichNeedsSpecialAttention(
-    domainCause: DomainException,
-  ) :
-    AppException(
-      message =
-        if (domainCause == DomainException.TotalDisaster) "OMG the world is burning" else "Pjuh",
-      cause = null,
-      httpStatus = if (domainCause == DomainException.BasicallyExpected) 200 else 500,
-    )
+  sealed interface ClientError : AppException {
+    val cause: Throwable
+    val httpStatus: Int
+  }
+
+  data class ThatFirstExternalApiException(
+    override val cause: Throwable,
+    override val httpStatus: Int,
+  ) : ClientError {
+    override val message: String =
+      cause.message
+        ?: "Something went wrong when calling the first external api, and no message was provided."
+  }
+
+  data class ThatSecondExternalApiException(
+    override val cause: Throwable,
+    override val httpStatus: Int,
+  ) : ClientError {
+    override val message: String =
+      cause.message
+        ?: "Something went wrong when calling the second external api, and no message was provided."
+  }
+
+  data class ThatDomainExceptionWhichNeedsSpecialAttention(
+    val domainCause: DomainException,
+  ) : AppException {
+    override val message = if (domainCause == TotalDisaster) "OMG the world is burning" else "Pjuh"
+  }
 }
 
 enum class DomainException {
